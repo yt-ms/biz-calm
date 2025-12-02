@@ -1,0 +1,372 @@
+{
+  "$schema": "../schemas/calm-business-architecture.schema.json",
+  "unique-id": "three-tier-trading-system",
+  "name": "Three-Tier Trading System - Business Architecture Business Architecture",
+  "description": "A hypothetical 3-tier trading system modeled using Business Architecture business architecture core concepts as CALM node types, demonstrating how business capabilities, value streams, and information concepts map to technical architecture components",
+  "metadata": [
+    {
+      "architecture-type": "business-and-application",
+      "modeling-approach": "Business Architecture-aligned",
+      "created": "2025-11-27",
+      "organization": "Financial Services Trading Division",
+      "purpose": "Demonstrate mapping of business architecture concepts to CALM technical architecture patterns"
+    }
+  ],
+  "nodes": [
+    {
+      "unique-id": "trade-execution-capability",
+      "node-type": "capability",
+      "name": "Trade Execution Capability",
+      "description": "The organizational ability to execute trades on behalf of clients across multiple asset classes and markets",
+      "metadata": {
+        "business-domain": "Capital Markets",
+        "capability-level": 1,
+        "maturity-level": "managed",
+        "business-owner": "Head of Trading Operations",
+        "value-proposition": "Enables real-time trade execution with regulatory compliance",
+        "investment-priority": "high"
+      }
+    },
+    {
+      "unique-id": "order-management-capability",
+      "node-type": "capability",
+      "name": "Order Management Capability",
+      "description": "Capability to capture, validate, route, and track orders through their lifecycle",
+      "metadata": {
+        "business-domain": "Capital Markets",
+        "capability-level": 2,
+        "parent-capability": "trade-execution-capability",
+        "maturity-level": "defined",
+        "business-owner": "Order Management Team Lead",
+        "value-proposition": "Ensures order integrity and auditability",
+        "investment-priority": "medium"
+      }
+    },
+    {
+      "unique-id": "trade-to-settlement-value-stream",
+      "node-type": "value-stream",
+      "name": "Trade to Settlement Value Stream",
+      "description": "End-to-end value stream from trade order placement through execution, clearing, and settlement",
+      "value-stream-type": "operational",
+      "cycle-time": "T+2 (2 business days)",
+      "customer-segment": "Institutional Investors",
+      "metadata": {
+        "business-domain": "Capital Markets",
+        "business-owner": "VP of Trading Operations",
+        "value-proposition": "Delivers efficient trade settlement with regulatory compliance"
+      }
+    },
+    {
+      "unique-id": "order-information-concept",
+      "node-type": "information-concept",
+      "name": "Trade Order Information Concept",
+      "description": "Business-level information concept representing a trade order, including instrument, quantity, price, client, and regulatory attributes",
+      "metadata": {
+        "business-domain": "Capital Markets",
+        "data-classification": "confidential",
+        "data-owner": "Chief Data Officer - Trading",
+        "retention-period": "7 years",
+        "business-owner": "Head of Trading Operations",
+        "value-proposition": "Standardized order representation across systems"
+      }
+    },
+    {
+      "unique-id": "institutional-client-stakeholder",
+      "node-type": "stakeholder",
+      "name": "Institutional Client",
+      "description": "External institutional investor who places trade orders through our platform",
+      "metadata": {
+        "business-domain": "Capital Markets",
+        "stakeholder-type": "external-customer",
+        "business-owner": "Client Relationship Manager",
+        "value-proposition": "Primary revenue source and user of trading services"
+      }
+    },
+    {
+      "unique-id": "trading-ui-layer",
+      "node-type": "webclient",
+      "name": "Trading UI - Presentation Layer",
+      "description": "Web-based user interface for trade order entry, execution monitoring, and position management",
+      "metadata": {
+        "technical-tier": "presentation",
+        "implements-capabilities": ["order-management-capability"],
+        "supports-value-stream": "trade-to-settlement-value-stream",
+        "technology": "React, TypeScript",
+        "team": "Front-End Engineering"
+      },
+      "interfaces": [
+        {
+          "unique-id": "trading-ui-url",
+          "url": "https://trading.example.com"
+        }
+      ]
+    },
+    {
+      "unique-id": "order-management-service",
+      "node-type": "service",
+      "name": "Order Management Service - Application Layer",
+      "description": "Core application service that implements order management capability business logic including validation, routing, and lifecycle management",
+      "metadata": {
+        "technical-tier": "application",
+        "implements-capabilities": ["order-management-capability", "trade-execution-capability"],
+        "supports-value-stream": "trade-to-settlement-value-stream",
+        "manages-information-concept": "order-information-concept",
+        "technology": "Java Spring Boot",
+        "team": "Trading Platform Engineering"
+      },
+      "interfaces": [
+        {
+          "unique-id": "oms-rest-api",
+          "url": "https://api.trading.example.com/orders"
+        }
+      ]
+    },
+    {
+      "unique-id": "execution-engine-service",
+      "node-type": "service",
+      "name": "Execution Engine Service - Application Layer",
+      "description": "Application service that executes trades against market venues and manages execution algorithms",
+      "metadata": {
+        "technical-tier": "application",
+        "implements-capabilities": ["trade-execution-capability"],
+        "supports-value-stream": "trade-to-settlement-value-stream",
+        "technology": "C++, Low-latency framework",
+        "team": "Execution Engineering"
+      },
+      "interfaces": [
+        {
+          "unique-id": "exec-engine-api",
+          "host": "exec-engine.internal.example.com",
+          "port": 8443
+        }
+      ]
+    },
+    {
+      "unique-id": "order-database",
+      "node-type": "database",
+      "name": "Order Database - Data Layer",
+      "description": "Primary database persisting trade order information concept data with full audit history",
+      "metadata": {
+        "technical-tier": "data",
+        "stores-information-concept": "order-information-concept",
+        "supports-value-stream": "trade-to-settlement-value-stream",
+        "database-type": "PostgreSQL",
+        "team": "Data Platform Engineering"
+      },
+      "interfaces": [
+        {
+          "unique-id": "order-db-connection",
+          "host": "order-db.internal.example.com",
+          "port": 5432
+        }
+      ]
+    },
+    {
+      "unique-id": "execution-database",
+      "node-type": "database",
+      "name": "Execution Database - Data Layer",
+      "description": "High-performance database storing execution details, fills, and market data",
+      "metadata": {
+        "technical-tier": "data",
+        "stores-information-concept": "order-information-concept",
+        "supports-value-stream": "trade-to-settlement-value-stream",
+        "database-type": "TimescaleDB",
+        "team": "Data Platform Engineering"
+      },
+      "interfaces": [
+        {
+          "unique-id": "exec-db-connection",
+          "host": "exec-db.internal.example.com",
+          "port": 5432
+        }
+      ]
+    },
+    {
+      "unique-id": "market-data-service",
+      "node-type": "service",
+      "name": "Market Data Service - External Integration",
+      "description": "External service providing real-time market prices and reference data",
+      "metadata": {
+        "technical-tier": "external",
+        "supports-value-stream": "trade-to-settlement-value-stream",
+        "provider": "Bloomberg",
+        "team": "Market Data Operations"
+      },
+      "interfaces": [
+        {
+          "unique-id": "market-data-feed",
+          "host": "feed.bloomberg.example.com",
+          "port": 8194
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "client-to-ui",
+      "description": "Institutional client interacts with trading UI",
+      "relationship-type": {
+        "interacts": {
+          "actor": "institutional-client-stakeholder",
+          "nodes": ["trading-ui-layer"]
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "ui-to-oms",
+      "description": "Trading UI submits orders to Order Management Service",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "trading-ui-layer",
+            "interfaces": ["trading-ui-url"]
+          },
+          "destination": {
+            "node": "order-management-service",
+            "interfaces": ["oms-rest-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "oms-to-order-db",
+      "description": "Store or retrieve order details",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "order-management-service"
+          },
+          "destination": {
+            "node": "order-database",
+            "interfaces": ["order-db-connection"]
+          }
+        }
+      },
+      "protocol": "JDBC"
+    },
+    {
+      "unique-id": "oms-to-exec-engine",
+      "description": "Route validated orders to execution engine",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "order-management-service"
+          },
+          "destination": {
+            "node": "execution-engine-service",
+            "interfaces": ["exec-engine-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "exec-engine-to-exec-db",
+      "description": "Store execution details and fills",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "execution-engine-service"
+          },
+          "destination": {
+            "node": "execution-database",
+            "interfaces": ["exec-db-connection"]
+          }
+        }
+      },
+      "protocol": "JDBC"
+    },
+    {
+      "unique-id": "exec-engine-to-market-data",
+      "description": "Request real-time market prices and reference data",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "execution-engine-service"
+          },
+          "destination": {
+            "node": "market-data-service",
+            "interfaces": ["market-data-feed"]
+          }
+        }
+      },
+      "protocol": "TCP"
+    },
+    {
+      "unique-id": "capability-composition",
+      "description": "Capability hierarchy decomposition",
+      "relationship-type": {
+        "composed-of": {
+          "container": "trade-execution-capability",
+          "nodes": ["order-management-capability"]
+        }
+      }
+    },
+    {
+      "unique-id": "ui-implements-oms-capability",
+      "description": "Components implementing order management capability",
+      "relationship-type": {
+        "composed-of": {
+          "container": "order-management-capability",
+          "nodes": ["trading-ui-layer", "order-management-service"]
+        }
+      }
+    },
+    {
+      "unique-id": "exec-capability-realization",
+      "description": "Components realizing trade execution capability",
+      "relationship-type": {
+        "composed-of": {
+          "container": "trade-execution-capability",
+          "nodes": ["execution-engine-service", "market-data-service"]
+        }
+      }
+    }
+  ],
+  "flows": [
+    {
+      "unique-id": "order-submission-flow",
+      "name": "Order Submission and Execution Flow",
+      "description": "End-to-end flow from client order submission through execution, demonstrating how the Trade to Settlement value stream traverses the 3-tier architecture",
+      "metadata": {
+        "supports-value-stream": "trade-to-settlement-value-stream",
+        "average-latency": "250ms",
+        "sla": "< 500ms p95"
+      },
+      "transitions": [
+        {
+          "relationship-unique-id": "ui-to-oms",
+          "sequence-number": 1,
+          "description": "Client submits order via UI to Order Management Service",
+          "direction": "source-to-destination"
+        },
+        {
+          "relationship-unique-id": "oms-to-order-db",
+          "sequence-number": 2,
+          "description": "OMS persists order information concept to database",
+          "direction": "source-to-destination"
+        },
+        {
+          "relationship-unique-id": "oms-to-exec-engine",
+          "sequence-number": 3,
+          "description": "OMS routes validated order to Execution Engine",
+          "direction": "source-to-destination"
+        },
+        {
+          "relationship-unique-id": "exec-engine-to-market-data",
+          "sequence-number": 4,
+          "description": "Execution Engine retrieves current market data",
+          "direction": "source-to-destination"
+        },
+        {
+          "relationship-unique-id": "exec-engine-to-exec-db",
+          "sequence-number": 5,
+          "description": "Execution Engine stores execution fills and details",
+          "direction": "source-to-destination"
+        }
+      ]
+    }
+  ]
+}

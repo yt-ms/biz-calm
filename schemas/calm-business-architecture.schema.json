@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "calm-business-architecture.schema.json",
+  "title": "CALM with Business Architecture Extensions Schema",
+  "description": "Schema for validating CALM documents with Business Architecture node types. Combines base CALM validation with Business Architecture-specific constraints.",
+  "allOf": [
+    {
+      "$ref": "https://calm.finos.org/release/1.0/meta/calm.json"
+    },
+    {
+      "$comment": "Apply Business Architecture node constraints to the nodes array",
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "calm-business-architecture.standard.json"
+          }
+        }
+      }
+    }
+  ]
+}

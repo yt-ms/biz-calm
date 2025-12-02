@@ -1,0 +1,17 @@
+{
+  "$schema": "https://calm.finos.org/release/1.0/meta/calm.json",
+  "name": "Example.com Trading System Example",
+  "description": "Example architecture using Example.com extended node standard",
+  "nodes": [
+    {
+      "$schema": "../schemas/company-example.standard.json",
+      "unique-id": "trading-system",
+      "node-type": "system",
+      "name": "Supercool Traing System", 
+      "description": "Trades any product in any venue",
+      "asset-id": "SAI-12345",
+      "system-owner": "denta"
+    }
+  ],
+  "relationships": []
+}

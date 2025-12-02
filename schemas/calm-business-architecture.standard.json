@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "calm-business-architecture.standard.json",
+  "title": "CALM with Business Architecture Extensions Meta-Schema",
+  "description": "Extensions to provide additional constraints for Business Architecture node types.",
+  "allOf": [
+    {
+      "$ref": "https://calm.finos.org/release/1.0/meta/core.json#/defs/node"
+    },
+    {
+      "type": "object",
+      "allOf": [
+        {
+          "$comment": "Apply Business Architecture-specific constraints based on node-type",
+          "if": {
+            "properties": {
+              "node-type": {
+                "enum": [
+                  "capability",
+                  "value-stream",
+                  "business-process",
+                  "information-concept",
+                  "stakeholder",
+                  "product",
+                  "initiative",
+                  "strategy",
+                  "objective",
+                  "policy",
+                  "event",
+                  "organization-unit"
+                ]
+              }
+            }
+          },
+          "then": {
+            "$comment": "Business Architecture nodes MUST have description",
+            "required": ["unique-id", "node-type", "name", "description"]
+          }
+        },
+        {
+          "$comment": "Capability-specific constraints",
+          "if": {
+            "properties": {
+              "node-type": {
+                "const": "capability"
+              }
+            }
+          },
+          "then": {
+            "required": ["unique-id", "node-type", "name", "description", "metadata"],
+            "properties": {
+              "metadata": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "required": ["business-domain", "capability-level"],
+                    "properties": {
+                      "business-domain": {
+                        "type": "string"
+                      },
+                      "capability-level": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4
+                      },
+                      "parent-capability": {
+                        "type": "string"
+                      },
+                      "maturity-level": {
+                        "enum": ["initial", "developing", "defined", "managed", "optimized"]
+                      },
+                      "business-owner": {
+                        "type": "string"
+                      },
+                      "investment-priority": {
+                        "enum": ["high", "medium", "low"]
+                      }
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "business-domain": {
+                          "type": "string"
+                        },
+                        "capability-level": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "contains": {
+                      "required": ["business-domain", "capability-level"]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "$comment": "Value-stream-specific constraints",
+          "if": {
+            "properties": {
+              "node-type": {
+                "const": "value-stream"
+              }
+            }
+          },
+          "then": {
+            "required": ["unique-id", "node-type", "name", "description", "value-stream-type"],
+            "properties": {
+              "value-stream-type": {
+                "enum": ["operational", "development", "customer-facing", "support"]
+              },
+              "cycle-time": {
+                "type": "string"
+              },
+              "customer-segment": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "$comment": "Information-concept-specific constraints",
+          "if": {
+            "properties": {
+              "node-type": {
+                "const": "information-concept"
+              }
+            }
+          },
+          "then": {
+            "required": ["unique-id", "node-type", "name", "description", "metadata"],
+            "properties": {
+              "metadata": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "required": ["data-classification"],
+                    "properties": {
+                      "data-classification": {
+                        "enum": ["public", "internal", "confidential", "restricted"]
+                      },
+                      "data-owner": {
+                        "type": "string"
+                      },
+                      "retention-period": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "required": ["data-classification"]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "$comment": "Stakeholder-specific constraints",
+          "if": {
+            "properties": {
+              "node-type": {
+                "const": "stakeholder"
+              }
+            }
+          },
+          "then": {
+            "required": ["unique-id", "node-type", "name", "description", "metadata"],
+            "properties": {
+              "metadata": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                      "stakeholder-type": {
+                        "enum": ["internal", "external-customer", "external-partner", "external-regulator"]
+                      }
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "required": []
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

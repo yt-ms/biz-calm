@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/company-example.standard.json",
+  "title": "Example.com CALM Extended Node Standard",
+  "description": "Extended CALM node definition with additional standard properties for Example.com common properties",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://calm.finos.org/release/1.0/meta/core.json#/defs/node"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "asset-id": {
+          "type": "string",
+          "description": "Identifier for the node in Example.com's asset inventory"
+        },
+        "system-owner": {
+          "type": "string",
+          "description": "User ID of the primary technical owner of the system"
+        }
+      },
+      "required": [
+        "asset-id",
+        "system-owner"
+      ]
+    }
+  ]
+}

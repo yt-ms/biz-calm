@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://calm.finos.org/extensions/calm-extended.meta.json",
+  "title": "CALM with Extensions Meta-Schema",
+  "description": "Extended CALM meta-schema.",
+  "allOf": [
+    {
+      "$ref": "https://calm.finos.org/release/1.0/meta/calm.json"
+    }
+  ]
+}
