@@ -8,7 +8,7 @@
       "node-type": "organization-unit",
       "name": "Global Financial Corp",
       "description": "Enterprise-level financial services organization providing banking, investment, and insurance products globally.",
-      "level": 1,
+      "level": 0,
       "business-unit-type": "enterprise"
     },
     {
@@ -16,7 +16,7 @@
       "node-type": "organization-unit",
       "name": "Retail Banking Division",
       "description": "Business unit responsible for consumer banking services including deposits, loans, credit cards, and personal financial products.",
-      "level": 2,
+      "level": 1,
       "business-unit-type": "business unit",
       "parent-unit": "global-financial-corp"
     },
@@ -25,7 +25,7 @@
       "node-type": "organization-unit",
       "name": "Commercial Banking Division",
       "description": "Business unit serving business customers with commercial lending, treasury management, merchant services, and corporate banking solutions.",
-      "level": 2,
+      "level": 1,
       "business-unit-type": "business unit",
       "parent-unit": "global-financial-corp"
     },
@@ -34,7 +34,7 @@
       "node-type": "organization-unit",
       "name": "Wealth Management Division",
       "description": "Business unit providing investment advisory, portfolio management, trust services, and private banking for high-net-worth individuals.",
-      "level": 2,
+      "level": 1,
       "business-unit-type": "business unit",
       "parent-unit": "global-financial-corp"
     },
@@ -43,7 +43,7 @@
       "node-type": "organization-unit",
       "name": "Operations and Technology",
       "description": "Business unit managing enterprise technology infrastructure, application development, cybersecurity, and operational support services.",
-      "level": 2,
+      "level": 1,
       "business-unit-type": "business unit",
       "parent-unit": "global-financial-corp"
     },
@@ -52,7 +52,7 @@
       "node-type": "organization-unit",
       "name": "Mortgage Services",
       "description": "Sub-unit within Retail Banking specializing in home mortgage origination, underwriting, and servicing.",
-      "level": 3,
+      "level": 2,
       "business-unit-type": "business unit",
       "parent-unit": "retail-banking-division"
     },
@@ -61,7 +61,7 @@
       "node-type": "organization-unit",
       "name": "Credit Card Operations",
       "description": "Sub-unit within Retail Banking managing credit card products, fraud prevention, and customer account management.",
-      "level": 3,
+      "level": 2,
       "business-unit-type": "business unit",
       "parent-unit": "retail-banking-division"
     },
@@ -70,7 +70,7 @@
       "node-type": "organization-unit",
       "name": "GlobalPay Solutions",
       "description": "External payment processing partner providing card network connectivity, authorization services, and settlement capabilities.",
-      "level": 1,
+      "level": 0,
       "business-unit-type": "partner"
     },
     {
@@ -78,7 +78,7 @@
       "node-type": "organization-unit",
       "name": "CoreTech Systems",
       "description": "Strategic technology partner providing core banking platform, hosting services, and ongoing system maintenance.",
-      "level": 1,
+      "level": 0,
       "business-unit-type": "partner"
     },
     {
@@ -86,7 +86,7 @@
       "node-type": "organization-unit",
       "name": "Digital Transformation Team",
       "description": "Cross-functional collaborative team driving digital innovation initiatives, mobile banking enhancements, and customer experience improvements.",
-      "level": 2,
+      "level": 1,
       "business-unit-type": "collaborative team",
       "parent-unit": "global-financial-corp"
     },
@@ -95,7 +95,7 @@
       "node-type": "organization-unit",
       "name": "Regulatory Compliance Team",
       "description": "Collaborative team ensuring adherence to financial regulations, managing audits, and implementing compliance controls across business units.",
-      "level": 2,
+      "level": 1,
       "business-unit-type": "collaborative team",
       "parent-unit": "global-financial-corp"
     },
@@ -104,7 +104,7 @@
       "node-type": "organization-unit",
       "name": "Customer Data Governance Team",
       "description": "Collaborative team establishing data quality standards, privacy policies, and governance frameworks for customer information across the enterprise.",
-      "level": 3,
+      "level": 2,
       "business-unit-type": "collaborative team",
       "parent-unit": "operations-technology"
     }
