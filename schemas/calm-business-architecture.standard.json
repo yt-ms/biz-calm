@@ -16,7 +16,7 @@
             "properties": {
               "node-type": {
                 "enum": [
-                  "capability",
+                  "business-capability",
                   "value-stream",
                   "business-process",
                   "information-concept",
@@ -42,59 +42,34 @@
           "if": {
             "properties": {
               "node-type": {
-                "const": "capability"
+                "const": "business-capability"
               }
             }
           },
           "then": {
-            "required": ["unique-id", "node-type", "name", "description", "metadata"],
+            "required": ["unique-id", "node-type", "name", "description", "capability-level"],
             "properties": {
-              "metadata": {
-                "anyOf": [
-                  {
-                    "type": "object",
-                    "required": ["business-domain", "capability-level"],
-                    "properties": {
-                      "business-domain": {
-                        "type": "string"
-                      },
-                      "capability-level": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 4
-                      },
-                      "parent-capability": {
-                        "type": "string"
-                      },
-                      "maturity-level": {
-                        "enum": ["initial", "developing", "defined", "managed", "optimized"]
-                      },
-                      "business-owner": {
-                        "type": "string"
-                      },
-                      "investment-priority": {
-                        "enum": ["high", "medium", "low"]
-                      }
-                    }
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "business-domain": {
-                          "type": "string"
-                        },
-                        "capability-level": {
-                          "type": "integer"
-                        }
-                      }
-                    },
-                    "contains": {
-                      "required": ["business-domain", "capability-level"]
-                    }
-                  }
-                ]
+              "name": {
+                "type": "string",
+                "description": "The naming convention is to express the business capability in a noun-verb format where each outcome (input, output, or deliverable) is described as a noun and each activity that is associated with producing, controlling or monitoring the outcome is described as a verb e.g., “Risk Management”, “Strategy Planning”."
+              },
+              "description": {
+                "type": "string",
+                "description": "Ideally 1 (or max 2) sentences. The recommended syntax to describe each business capability is “the ability [or capacity] to …”. For example, the business capability “Market Risk Management” can be described as “Ability to identify, assess, aggregate, articulate, and incorporate various exposures to harm, danger, or loss associated with a market.” Be concise and precise - do not simply repeat the name of the capability in the description, such as “the ability to manage projects” when describing “Project Management”. Instead use a description that has more explanation such as “Ability to plan, execute, monitor projects from inception to completion”."
+              },
+              "capability-level": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4,
+                "description": "Hierarchical level of the capability (0=top-level, 1-4=increasing decomposition)"
+              },
+              "parent-capability": {
+                "type": "string",
+                "description": "Reference to the unique-id of the parent capability node"
+              },
+              "maturity-level": {
+                "enum": ["initial", "developing", "defined", "managed", "optimized"],
+                "description": "Capability maturity assessment based on standardization and optimization level"
               }
             }
           }
