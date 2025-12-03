@@ -22,8 +22,19 @@ npm install -g @finos/calm-cli
 ### Validate Example Architecture
 
 ```bash
-calm validate -a architectures/trading-system-bizarch.architecture.json
+cd schemas
+calm validate -a ../architectures/trading-system-bizarch.architecture.json
 ```
+
+> Due to [this issue](https://github.com/finos/architecture-as-code/issues/1863), it is currently necessary to
+run the validation from the `schemas` directory as above, rather than from the root or from the `architectures` directory.
+
+
+## Worked examples of business architecture concepts
+
+* Business Capabilities: `architectures/financial-institution-capabilities.calm.json`
+* Value Streams: `architectures/financial-institution-capabilities.calm.json`
+
 
 ## Repository Structure
 
@@ -31,6 +42,8 @@ calm validate -a architectures/trading-system-bizarch.architecture.json
 biz-calm/
 ├── architectures/
 │   ├── company-example.calm.json
+│   ├── financial-institution-capabilities.calm.json
+│   ├── financial-institution-value-streams.calm.json
 │   └── trading-system-bizarch.architecture.json
 ├── schemas/
 │   ├── calm-business-architecture.standard.json
