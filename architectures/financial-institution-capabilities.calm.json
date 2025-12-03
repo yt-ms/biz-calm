@@ -1,0 +1,185 @@
+{
+  "$schema": "../schemas/calm-business-architecture.schema.json",
+  "name": "Financial Institution Business Capabilities",
+  "description": "Example business capability architecture for a financial institution showing top-level and sub-capabilities",
+  "nodes": [
+    {
+      "unique-id": "risk-management",
+      "node-type": "business-capability",
+      "name": "Risk Management",
+      "description": "Ability to identify, assess, monitor, and mitigate various types of financial and operational risks across the organization to protect assets and ensure regulatory compliance.",
+      "capability-level": 0,
+      "seq-num": "1"
+    },
+    {
+      "unique-id": "credit-risk-management",
+      "node-type": "business-capability",
+      "name": "Credit Risk Management",
+      "description": "Ability to evaluate and manage the risk of loss from borrower default or failure to meet contractual obligations, including credit scoring, limit management, and exposure monitoring.",
+      "capability-level": 1,
+      "parent-capability": "risk-management",
+      "seq-num": "1.1"
+    },
+    {
+      "unique-id": "market-risk-management",
+      "node-type": "business-capability",
+      "name": "Market Risk Management",
+      "description": "Ability to identify, measure, and control potential losses from adverse movements in market prices, interest rates, foreign exchange rates, and commodity prices.",
+      "capability-level": 1,
+      "parent-capability": "risk-management",
+      "seq-num": "1.2"
+    },
+    {
+      "unique-id": "customer-relationship-management",
+      "node-type": "business-capability",
+      "name": "Customer Relationship Management",
+      "description": "Ability to acquire, retain, and grow customer relationships through personalized service, product offerings, and engagement strategies that drive customer satisfaction and lifetime value.",
+      "capability-level": 0,
+      "seq-num": "2"
+    },
+    {
+      "unique-id": "customer-onboarding",
+      "node-type": "business-capability",
+      "name": "Customer Onboarding",
+      "description": "Ability to acquire new customers through KYC verification, account opening, identity validation, and regulatory compliance checks while delivering a seamless digital or branch experience.",
+      "capability-level": 1,
+      "parent-capability": "customer-relationship-management",
+      "seq-num": "2.1"
+    },
+    {
+      "unique-id": "customer-service-support",
+      "node-type": "business-capability",
+      "name": "Customer Service and Support",
+      "description": "Ability to provide responsive multi-channel customer assistance, resolve inquiries and complaints, and maintain service quality across digital, phone, and in-person interactions.",
+      "capability-level": 1,
+      "parent-capability": "customer-relationship-management",
+      "seq-num": "2.2"
+    },
+    {
+      "unique-id": "payments-processing",
+      "node-type": "business-capability",
+      "name": "Payments Processing",
+      "description": "Ability to execute, clear, and settle various payment types including wire transfers, ACH, card transactions, and real-time payments while ensuring security, compliance, and operational efficiency.",
+      "capability-level": 0,
+      "seq-num": "3"
+    },
+    {
+      "unique-id": "domestic-payments",
+      "node-type": "business-capability",
+      "name": "Domestic Payments",
+      "description": "Ability to process and settle payments within a single country using local payment rails, clearing systems, and regulatory frameworks including ACH, checks, and domestic wires.",
+      "capability-level": 1,
+      "parent-capability": "payments-processing",
+      "seq-num": "3.1"
+    },
+    {
+      "unique-id": "international-payments",
+      "node-type": "business-capability",
+      "name": "International Payments",
+      "description": "Ability to execute cross-border payments through SWIFT, correspondent banking networks, and foreign exchange services while managing currency conversion, regulatory compliance, and settlement timing.",
+      "capability-level": 1,
+      "parent-capability": "payments-processing",
+      "seq-num": "3.2"
+    },
+    {
+      "unique-id": "lending-operations",
+      "node-type": "business-capability",
+      "name": "Lending Operations",
+      "description": "Ability to originate, underwrite, service, and manage various loan products including mortgages, personal loans, and commercial credit while ensuring credit quality and regulatory compliance.",
+      "capability-level": 0,
+      "seq-num": "4"
+    },
+    {
+      "unique-id": "loan-origination",
+      "node-type": "business-capability",
+      "name": "Loan Origination",
+      "description": "Ability to process loan applications from initial inquiry through approval, including credit assessment, document collection, underwriting decisions, and loan booking.",
+      "capability-level": 1,
+      "parent-capability": "lending-operations",
+      "seq-num": "4.1"
+    },
+    {
+      "unique-id": "loan-servicing",
+      "node-type": "business-capability",
+      "name": "Loan Servicing",
+      "description": "Ability to manage ongoing loan administration including payment processing, account maintenance, escrow management, customer communications, and delinquency management throughout the loan lifecycle.",
+      "capability-level": 1,
+      "parent-capability": "lending-operations",
+      "seq-num": "4.2"
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "rel-credit-risk-to-risk",
+      "relationship-type": "hierarchy",
+      "parties": [
+        "risk-management",
+        "credit-risk-management"
+      ],
+      "description": "Credit Risk Management is a sub-capability of Risk Management"
+    },
+    {
+      "unique-id": "rel-market-risk-to-risk",
+      "relationship-type": "hierarchy",
+      "parties": [
+        "risk-management",
+        "market-risk-management"
+      ],
+      "description": "Market Risk Management is a sub-capability of Risk Management"
+    },
+    {
+      "unique-id": "rel-onboarding-to-crm",
+      "relationship-type": "hierarchy",
+      "parties": [
+        "customer-relationship-management",
+        "customer-onboarding"
+      ],
+      "description": "Customer Onboarding is a sub-capability of Customer Relationship Management"
+    },
+    {
+      "unique-id": "rel-service-to-crm",
+      "relationship-type": "hierarchy",
+      "parties": [
+        "customer-relationship-management",
+        "customer-service-support"
+      ],
+      "description": "Customer Service and Support is a sub-capability of Customer Relationship Management"
+    },
+    {
+      "unique-id": "rel-domestic-payments-to-payments",
+      "relationship-type": "hierarchy",
+      "parties": [
+        "payments-processing",
+        "domestic-payments"
+      ],
+      "description": "Domestic Payments is a sub-capability of Payments Processing"
+    },
+    {
+      "unique-id": "rel-international-payments-to-payments",
+      "relationship-type": "hierarchy",
+      "parties": [
+        "payments-processing",
+        "international-payments"
+      ],
+      "description": "International Payments is a sub-capability of Payments Processing"
+    },
+    {
+      "unique-id": "rel-loan-origination-to-lending",
+      "relationship-type": "hierarchy",
+      "parties": [
+        "lending-operations",
+        "loan-origination"
+      ],
+      "description": "Loan Origination is a sub-capability of Lending Operations"
+    },
+    {
+      "unique-id": "rel-loan-servicing-to-lending",
+      "relationship-type": "hierarchy",
+      "parties": [
+        "lending-operations",
+        "loan-servicing"
+      ],
+      "description": "Loan Servicing is a sub-capability of Lending Operations"
+    }
+  ]
+}
