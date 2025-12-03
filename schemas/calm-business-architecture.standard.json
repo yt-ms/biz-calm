@@ -67,6 +67,11 @@
                 "type": "string",
                 "description": "Reference to the unique-id of the parent capability node"
               },
+              "seq-num": {
+                "type": "string",
+                "pattern": "^[0-9]+(\\.[0-9]+){0,3}$",
+                "description": "Sequence number in the format n.n.n.n (e.g., 1, 1.1, 1.1.2, 1.1.2.3) representing the hierarchical position of the capability"
+              },
               "maturity-level": {
                 "enum": ["initial", "developing", "defined", "managed", "optimized"],
                 "description": "Capability maturity assessment based on standardization and optimization level"
