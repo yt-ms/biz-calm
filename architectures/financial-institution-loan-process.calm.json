@@ -1,0 +1,481 @@
+{
+  "$schema": "../schemas/calm-business-architecture.schema.json",
+  "name": "Financial Institution Loan Application Process",
+  "description": "Detailed architecture showing the Process Loan Application value stream decomposed into value stream stages, with stages mapping to business processes",
+  "nodes": [
+    {
+      "unique-id": "retail-customer",
+      "node-type": "stakeholder",
+      "name": "Retail Customer",
+      "description": "Individual consumer seeking personal banking products and services including checking accounts, savings accounts, credit cards, and loans.",
+      "metadata": {
+        "stakeholder-type": "external-customer"
+      }
+    },
+    {
+      "unique-id": "loan-officer",
+      "node-type": "stakeholder",
+      "name": "Loan Officer",
+      "description": "Internal staff member responsible for reviewing loan applications, assessing creditworthiness, and making lending decisions.",
+      "metadata": {
+        "stakeholder-type": "internal"
+      }
+    },
+    {
+      "unique-id": "process-loan-application",
+      "node-type": "value-stream",
+      "name": "Process Loan Application",
+      "description": "Complete journey from loan inquiry through funding, including application submission, creditworthiness assessment, approval decision, and disbursement.",
+      "stakeholder": "retail-customer",
+      "value": "Approved loan with funds disbursed to meet customer's financial need"
+    },
+    {
+      "unique-id": "vs-stage-receive-application",
+      "node-type": "value-stream-stage",
+      "name": "Receive Application",
+      "description": "Initial stage where customer submits loan application with required information including personal details, employment history, income documentation, and loan requirements. Application is validated for completeness and accuracy.",
+      "parent-value-stream": "process-loan-application",
+      "stage-order": 1,
+      "stakeholder": "retail-customer",
+      "stage-value": "Complete and validated loan application ready for assessment"
+    },
+    {
+      "unique-id": "vs-stage-assess-credit",
+      "node-type": "value-stream-stage",
+      "name": "Assess Credit Risk",
+      "description": "Comprehensive evaluation of applicant's creditworthiness including credit score analysis, debt-to-income ratio calculation, employment verification, and collateral assessment. Risk models are applied to determine default probability.",
+      "parent-value-stream": "process-loan-application",
+      "stage-order": 2,
+      "stakeholder": "loan-officer",
+      "stage-value": "Completed credit risk assessment with recommendation score"
+    },
+    {
+      "unique-id": "vs-stage-make-decision",
+      "node-type": "value-stream-stage",
+      "name": "Make Lending Decision",
+      "description": "Formal approval or denial decision based on credit assessment, policy requirements, and lending authority limits. Includes determination of loan terms such as interest rate, repayment period, and conditions.",
+      "parent-value-stream": "process-loan-application",
+      "stage-order": 3,
+      "stakeholder": "loan-officer",
+      "stage-value": "Binding lending decision with approved terms or denial with reasoning"
+    },
+    {
+      "unique-id": "vs-stage-disburse-funds",
+      "node-type": "value-stream-stage",
+      "name": "Disburse Funds",
+      "description": "Final stage where approved loan funds are transferred to customer's account or designated recipient. Includes loan document execution, account setup, repayment schedule creation, and fund transfer processing.",
+      "parent-value-stream": "process-loan-application",
+      "stage-order": 4,
+      "stakeholder": "retail-customer",
+      "stage-value": "Loan funds successfully delivered and loan account activated"
+    },
+    {
+      "unique-id": "proc-validate-application",
+      "node-type": "business-process",
+      "name": "Validate Loan Application",
+      "description": "Automated and manual checks to ensure application completeness, validate data format and accuracy, verify required documentation, and perform initial fraud screening."
+    },
+    {
+      "unique-id": "proc-capture-application-data",
+      "node-type": "business-process",
+      "name": "Capture Application Data",
+      "description": "Process for collecting and recording loan application information into the loan origination system, including data entry, document scanning, and OCR processing."
+    },
+    {
+      "unique-id": "proc-pull-credit-report",
+      "node-type": "business-process",
+      "name": "Pull Credit Report",
+      "description": "Retrieval of credit history and scores from credit bureaus, including soft and hard inquiries based on application stage and customer consent."
+    },
+    {
+      "unique-id": "proc-verify-income-employment",
+      "node-type": "business-process",
+      "name": "Verify Income and Employment",
+      "description": "Confirmation of applicant's employment status, job tenure, and income through pay stubs, tax returns, employer verification, and third-party databases."
+    },
+    {
+      "unique-id": "proc-calculate-dti",
+      "node-type": "business-process",
+      "name": "Calculate Debt-to-Income Ratio",
+      "description": "Computation of applicant's total monthly debt obligations divided by gross monthly income to assess repayment capacity and compliance with lending guidelines."
+    },
+    {
+      "unique-id": "proc-assess-collateral",
+      "node-type": "business-process",
+      "name": "Assess Collateral Value",
+      "description": "Appraisal and valuation of assets offered as loan security, including property inspections, market analysis, and loan-to-value ratio calculations."
+    },
+    {
+      "unique-id": "proc-score-application",
+      "node-type": "business-process",
+      "name": "Score Application",
+      "description": "Application of credit scoring models and risk algorithms to generate a quantitative risk assessment and recommendation for lending decision."
+    },
+    {
+      "unique-id": "proc-apply-lending-policy",
+      "node-type": "business-process",
+      "name": "Apply Lending Policy",
+      "description": "Evaluation of application against institution's lending policies, regulatory requirements, and risk appetite to determine approvability and required conditions."
+    },
+    {
+      "unique-id": "proc-determine-terms",
+      "node-type": "business-process",
+      "name": "Determine Loan Terms",
+      "description": "Calculation and assignment of loan parameters including interest rate, term length, monthly payment, fees, and special conditions based on risk profile and competitive positioning."
+    },
+    {
+      "unique-id": "proc-authorize-decision",
+      "node-type": "business-process",
+      "name": "Authorize Lending Decision",
+      "description": "Formal approval process involving appropriate authority levels, committee reviews for larger loans, and final decision documentation with rationale."
+    },
+    {
+      "unique-id": "proc-prepare-documents",
+      "node-type": "business-process",
+      "name": "Prepare Loan Documents",
+      "description": "Generation of loan agreements, promissory notes, disclosure documents, and closing paperwork with terms and conditions specific to the approved loan."
+    },
+    {
+      "unique-id": "proc-execute-agreements",
+      "node-type": "business-process",
+      "name": "Execute Loan Agreements",
+      "description": "Process of obtaining required signatures on loan documents, verifying identity, witnessing signatures, and ensuring legal validity of executed agreements."
+    },
+    {
+      "unique-id": "proc-setup-loan-account",
+      "node-type": "business-process",
+      "name": "Setup Loan Account",
+      "description": "Creation of loan account in core banking system, configuration of repayment schedule, setup of automated payment processing, and customer notification setup."
+    },
+    {
+      "unique-id": "proc-transfer-funds",
+      "node-type": "business-process",
+      "name": "Transfer Funds",
+      "description": "Execution of fund disbursement from lending pool to customer account or third-party recipient, including payment processing, reconciliation, and confirmation."
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "rel-loan-to-retail",
+      "description": "Retail Customer initiates Process Loan Application value stream",
+      "relationship-type": {
+        "interacts": {
+          "actor": "retail-customer",
+          "nodes": ["process-loan-application"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-vs-composed-stage1",
+      "description": "Process Loan Application value stream is composed of Receive Application stage",
+      "relationship-type": {
+        "composed-of": {
+          "container": "process-loan-application",
+          "nodes": ["vs-stage-receive-application"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-vs-composed-stage2",
+      "description": "Process Loan Application value stream is composed of Assess Credit Risk stage",
+      "relationship-type": {
+        "composed-of": {
+          "container": "process-loan-application",
+          "nodes": ["vs-stage-assess-credit"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-vs-composed-stage3",
+      "description": "Process Loan Application value stream is composed of Make Lending Decision stage",
+      "relationship-type": {
+        "composed-of": {
+          "container": "process-loan-application",
+          "nodes": ["vs-stage-make-decision"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-vs-composed-stage4",
+      "description": "Process Loan Application value stream is composed of Disburse Funds stage",
+      "relationship-type": {
+        "composed-of": {
+          "container": "process-loan-application",
+          "nodes": ["vs-stage-disburse-funds"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-stage1-maps-to-processes",
+      "description": "Receive Application stage maps to application capture and validation processes",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-receive-application"
+          },
+          "destination": {
+            "node": "proc-capture-application-data"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage1-maps-to-processes-2",
+      "description": "Receive Application stage maps to validation process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-receive-application"
+          },
+          "destination": {
+            "node": "proc-validate-application"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage2-maps-to-proc1",
+      "description": "Assess Credit Risk stage maps to Pull Credit Report process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-assess-credit"
+          },
+          "destination": {
+            "node": "proc-pull-credit-report"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage2-maps-to-proc2",
+      "description": "Assess Credit Risk stage maps to Verify Income and Employment process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-assess-credit"
+          },
+          "destination": {
+            "node": "proc-verify-income-employment"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage2-maps-to-proc3",
+      "description": "Assess Credit Risk stage maps to Calculate DTI process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-assess-credit"
+          },
+          "destination": {
+            "node": "proc-calculate-dti"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage2-maps-to-proc4",
+      "description": "Assess Credit Risk stage maps to Assess Collateral process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-assess-credit"
+          },
+          "destination": {
+            "node": "proc-assess-collateral"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage2-maps-to-proc5",
+      "description": "Assess Credit Risk stage maps to Score Application process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-assess-credit"
+          },
+          "destination": {
+            "node": "proc-score-application"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage3-maps-to-proc1",
+      "description": "Make Lending Decision stage maps to Apply Lending Policy process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-make-decision"
+          },
+          "destination": {
+            "node": "proc-apply-lending-policy"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage3-maps-to-proc2",
+      "description": "Make Lending Decision stage maps to Determine Loan Terms process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-make-decision"
+          },
+          "destination": {
+            "node": "proc-determine-terms"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage3-maps-to-proc3",
+      "description": "Make Lending Decision stage maps to Authorize Decision process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-make-decision"
+          },
+          "destination": {
+            "node": "proc-authorize-decision"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage4-maps-to-proc1",
+      "description": "Disburse Funds stage maps to Prepare Loan Documents process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-disburse-funds"
+          },
+          "destination": {
+            "node": "proc-prepare-documents"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage4-maps-to-proc2",
+      "description": "Disburse Funds stage maps to Execute Loan Agreements process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-disburse-funds"
+          },
+          "destination": {
+            "node": "proc-execute-agreements"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage4-maps-to-proc3",
+      "description": "Disburse Funds stage maps to Setup Loan Account process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-disburse-funds"
+          },
+          "destination": {
+            "node": "proc-setup-loan-account"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-stage4-maps-to-proc4",
+      "description": "Disburse Funds stage maps to Transfer Funds process",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "vs-stage-disburse-funds"
+          },
+          "destination": {
+            "node": "proc-transfer-funds"
+          }
+        }
+      },
+      "metadata": {
+        "relationship-category": "maps-to",
+        "description": "Value stream stage to process mapping"
+      }
+    },
+    {
+      "unique-id": "rel-officer-interacts-assess",
+      "description": "Loan Officer participates in credit assessment stage",
+      "relationship-type": {
+        "interacts": {
+          "actor": "loan-officer",
+          "nodes": ["vs-stage-assess-credit"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-officer-interacts-decision",
+      "description": "Loan Officer participates in lending decision stage",
+      "relationship-type": {
+        "interacts": {
+          "actor": "loan-officer",
+          "nodes": ["vs-stage-make-decision"]
+        }
+      }
+    }
+  ]
+}

@@ -34,6 +34,7 @@ run the validation from the `schemas` directory as above, rather than from the r
 
 * Business Capabilities: `architectures/financial-institution-capabilities.calm.json`
 * Value Streams: `architectures/financial-institution-value-streams.calm.json`
+* Value Stream Stages & Process Mapping: `architectures/financial-institution-loan-process.calm.json`
 * Organizational Structure: `architectures/financial-institution-organization.calm.json`
 
 
@@ -44,6 +45,7 @@ biz-calm/
 ├── architectures/
 │   ├── company-example.calm.json
 │   ├── financial-institution-capabilities.calm.json
+│   ├── financial-institution-loan-process.calm.json
 │   ├── financial-institution-organization.calm.json
 │   ├── financial-institution-value-streams.calm.json
 │   └── trading-system-bizarch.architecture.json
@@ -61,10 +63,11 @@ biz-calm/
 
 The following business architecture core concepts can be used as CALM node types:
 
-- **capability** - Business capabilities
-- **value-stream** - Value delivery flows
-- **business-process** - Business processes
-- **organization-unit** - Organizational structures
+- **business-capability** - Business capabilities with hierarchical decomposition
+- **value-stream** - Value delivery flows from stakeholder perspective
+- **value-stream-stage** - Sequential stages within a value stream
+- **business-process** - Business processes that implement capabilities and stages
+- **organization-unit** - Organizational structures and units
 - **stakeholder** - Internal/external stakeholders
 - **information-concept** - Business information concepts
 - **product** - Products and services
@@ -119,6 +122,32 @@ The example architecture demonstrates:
 }
 ```
 
+**Value Stream Stages**:
+```json
+{
+  "node-type": "value-stream-stage",
+  "name": "Assess Credit Risk",
+  "parent-value-stream": "process-loan-application",
+  "stage-order": 2,
+  "stage-value": "Completed credit risk assessment with recommendation score"
+}
+```
+
+**Stage-to-Process Mapping**:
+```json
+{
+  "relationship-type": {
+    "connects": {
+      "source": {"node": "vs-stage-assess-credit"},
+      "destination": {"node": "proc-score-application"}
+    }
+  },
+  "metadata": {
+    "relationship-category": "maps-to"
+  }
+}
+```
+
 ## Documentation
 
 - [Business Architecture Modelling Guide](docs/business-architecture-modelling.md) - Comprehensive guide to modeling business architecture concepts
@@ -143,7 +172,9 @@ calm docify -a architectures/trading-system-bizarch.architecture.json -o docs/ou
 2. **Digital Transformation**: Link initiatives to technical modernization
 3. **Business Impact Analysis**: Understand technical changes' business impact
 4. **Capability-Based Planning**: Organize investments around capabilities
-5. **Compliance Mapping**: Trace regulations through capabilities to controls
+5. **Value Stream Mapping**: Decompose value streams into stages and map to processes
+6. **Process-to-Capability Alignment**: Connect operational processes to strategic capabilities
+7. **Compliance Mapping**: Trace regulations through capabilities to controls
 
 ## Contributing
 

@@ -18,6 +18,7 @@
                 "enum": [
                   "business-capability",
                   "value-stream",
+                  "value-stream-stage",
                   "business-process",
                   "information-concept",
                   "stakeholder",
@@ -106,6 +107,42 @@
               "value": {
                 "type": "string",
                 "description": "The expected outcome or benefit from the stakeholder's perspective when the value stream completes successfully. This represents the cumulative value delivered across all stages of the value stream."
+              }
+            }
+          }
+        },
+        {
+          "$comment": "Value-stream-stage-specific constraints",
+          "if": {
+            "properties": {
+              "node-type": {
+                "const": "value-stream-stage"
+              }
+            }
+          },
+          "then": {
+            "required": ["unique-id", "node-type", "name", "description", "parent-value-stream"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Value stream stage names should describe a distinct phase or step in the value stream using active voice with a verb-noun structure. Examples: 'Validate Application', 'Assess Credit Risk', 'Approve Loan'."
+              },
+              "description": {
+                "type": "string",
+                "description": "Clear explanation of what occurs during this stage, the inputs required, outputs produced, and any key decision points or transformation activities."
+              },
+              "parent-value-stream": {
+                "type": "string",
+                "description": "Reference to the unique-id of the parent value stream that this stage is part of."
+              },
+              "stage-order": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Sequential position of this stage within the parent value stream (1=first stage)."
+              },
+              "stage-value": {
+                "type": "string",
+                "description": "The specific value or outcome delivered upon completion of this stage, contributing to the overall value stream value."
               }
             }
           }
@@ -222,5 +259,29 @@
         }
       ]
     }
-  ]
+  ],
+  "defs": {
+    "maps-to-type": {
+      "type": "object",
+      "description": "Represents a mapping relationship where a source node (typically a value stream stage) maps to one or more target nodes (typically business processes) that realize or implement that stage.",
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "The unique-id of the source node (e.g., value-stream-stage) that maps to the target nodes."
+        },
+        "targets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of unique-ids of the target nodes (e.g., business-process) that the source maps to."
+        }
+      },
+      "required": [
+        "source",
+        "targets"
+      ]
+    }
+  }
 }
