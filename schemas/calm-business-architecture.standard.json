@@ -183,6 +183,42 @@
               }
             }
           }
+        },
+        {
+          "$comment": "Organization-unit-specific constraints",
+          "if": {
+            "properties": {
+              "node-type": {
+                "const": "organization-unit"
+              }
+            }
+          },
+          "then": {
+            "required": ["unique-id", "node-type", "name", "description", "level", "business-unit-type"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the organizational unit."
+              },
+              "description": {
+                "type": "string",
+                "description": "Description of the organizational unit's purpose and responsibilities."
+              },
+              "level": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Hierarchical level of the organizational unit (0=top-level, higher numbers=deeper in hierarchy)"
+              },
+              "business-unit-type": {
+                "enum": ["enterprise", "business unit", "partner", "collaborative team"],
+                "description": "Type of organizational unit"
+              },
+              "parent-unit": {
+                "type": "string",
+                "description": "Reference to the unique-id of the parent organizational unit"
+              }
+            }
+          }
         }
       ]
     }

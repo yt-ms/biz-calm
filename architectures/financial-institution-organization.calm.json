@@ -1,0 +1,204 @@
+{
+  "$schema": "../schemas/calm-business-architecture.schema.json",
+  "name": "Financial Institution Organizational Structure",
+  "description": "Example organizational structure for a financial institution showing enterprise, business units, partners, and collaborative teams",
+  "nodes": [
+    {
+      "unique-id": "global-financial-corp",
+      "node-type": "organization-unit",
+      "name": "Global Financial Corp",
+      "description": "Enterprise-level financial services organization providing banking, investment, and insurance products globally.",
+      "level": 1,
+      "business-unit-type": "enterprise"
+    },
+    {
+      "unique-id": "retail-banking-division",
+      "node-type": "organization-unit",
+      "name": "Retail Banking Division",
+      "description": "Business unit responsible for consumer banking services including deposits, loans, credit cards, and personal financial products.",
+      "level": 2,
+      "business-unit-type": "business unit",
+      "parent-unit": "global-financial-corp"
+    },
+    {
+      "unique-id": "commercial-banking-division",
+      "node-type": "organization-unit",
+      "name": "Commercial Banking Division",
+      "description": "Business unit serving business customers with commercial lending, treasury management, merchant services, and corporate banking solutions.",
+      "level": 2,
+      "business-unit-type": "business unit",
+      "parent-unit": "global-financial-corp"
+    },
+    {
+      "unique-id": "wealth-management-division",
+      "node-type": "organization-unit",
+      "name": "Wealth Management Division",
+      "description": "Business unit providing investment advisory, portfolio management, trust services, and private banking for high-net-worth individuals.",
+      "level": 2,
+      "business-unit-type": "business unit",
+      "parent-unit": "global-financial-corp"
+    },
+    {
+      "unique-id": "operations-technology",
+      "node-type": "organization-unit",
+      "name": "Operations and Technology",
+      "description": "Business unit managing enterprise technology infrastructure, application development, cybersecurity, and operational support services.",
+      "level": 2,
+      "business-unit-type": "business unit",
+      "parent-unit": "global-financial-corp"
+    },
+    {
+      "unique-id": "mortgage-services",
+      "node-type": "organization-unit",
+      "name": "Mortgage Services",
+      "description": "Sub-unit within Retail Banking specializing in home mortgage origination, underwriting, and servicing.",
+      "level": 3,
+      "business-unit-type": "business unit",
+      "parent-unit": "retail-banking-division"
+    },
+    {
+      "unique-id": "credit-card-operations",
+      "node-type": "organization-unit",
+      "name": "Credit Card Operations",
+      "description": "Sub-unit within Retail Banking managing credit card products, fraud prevention, and customer account management.",
+      "level": 3,
+      "business-unit-type": "business unit",
+      "parent-unit": "retail-banking-division"
+    },
+    {
+      "unique-id": "payment-processor-partner",
+      "node-type": "organization-unit",
+      "name": "GlobalPay Solutions",
+      "description": "External payment processing partner providing card network connectivity, authorization services, and settlement capabilities.",
+      "level": 1,
+      "business-unit-type": "partner"
+    },
+    {
+      "unique-id": "core-banking-vendor",
+      "node-type": "organization-unit",
+      "name": "CoreTech Systems",
+      "description": "Strategic technology partner providing core banking platform, hosting services, and ongoing system maintenance.",
+      "level": 1,
+      "business-unit-type": "partner"
+    },
+    {
+      "unique-id": "digital-transformation-team",
+      "node-type": "organization-unit",
+      "name": "Digital Transformation Team",
+      "description": "Cross-functional collaborative team driving digital innovation initiatives, mobile banking enhancements, and customer experience improvements.",
+      "level": 2,
+      "business-unit-type": "collaborative team",
+      "parent-unit": "global-financial-corp"
+    },
+    {
+      "unique-id": "regulatory-compliance-team",
+      "node-type": "organization-unit",
+      "name": "Regulatory Compliance Team",
+      "description": "Collaborative team ensuring adherence to financial regulations, managing audits, and implementing compliance controls across business units.",
+      "level": 2,
+      "business-unit-type": "collaborative team",
+      "parent-unit": "global-financial-corp"
+    },
+    {
+      "unique-id": "customer-data-governance-team",
+      "node-type": "organization-unit",
+      "name": "Customer Data Governance Team",
+      "description": "Collaborative team establishing data quality standards, privacy policies, and governance frameworks for customer information across the enterprise.",
+      "level": 3,
+      "business-unit-type": "collaborative team",
+      "parent-unit": "operations-technology"
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "rel-retail-to-enterprise",
+      "description": "Retail Banking Division is part of Global Financial Corp",
+      "relationship-type": {
+        "composed-of": {
+          "container": "global-financial-corp",
+          "nodes": ["retail-banking-division"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-commercial-to-enterprise",
+      "description": "Commercial Banking Division is part of Global Financial Corp",
+      "relationship-type": {
+        "composed-of": {
+          "container": "global-financial-corp",
+          "nodes": ["commercial-banking-division"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-wealth-to-enterprise",
+      "description": "Wealth Management Division is part of Global Financial Corp",
+      "relationship-type": {
+        "composed-of": {
+          "container": "global-financial-corp",
+          "nodes": ["wealth-management-division"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-ops-tech-to-enterprise",
+      "description": "Operations and Technology is part of Global Financial Corp",
+      "relationship-type": {
+        "composed-of": {
+          "container": "global-financial-corp",
+          "nodes": ["operations-technology"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-mortgage-to-retail",
+      "description": "Mortgage Services is part of Retail Banking Division",
+      "relationship-type": {
+        "composed-of": {
+          "container": "retail-banking-division",
+          "nodes": ["mortgage-services"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-creditcard-to-retail",
+      "description": "Credit Card Operations is part of Retail Banking Division",
+      "relationship-type": {
+        "composed-of": {
+          "container": "retail-banking-division",
+          "nodes": ["credit-card-operations"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-digital-team-to-enterprise",
+      "description": "Digital Transformation Team supports Global Financial Corp",
+      "relationship-type": {
+        "composed-of": {
+          "container": "global-financial-corp",
+          "nodes": ["digital-transformation-team"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-compliance-team-to-enterprise",
+      "description": "Regulatory Compliance Team supports Global Financial Corp",
+      "relationship-type": {
+        "composed-of": {
+          "container": "global-financial-corp",
+          "nodes": ["regulatory-compliance-team"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-data-gov-to-ops-tech",
+      "description": "Customer Data Governance Team operates within Operations and Technology",
+      "relationship-type": {
+        "composed-of": {
+          "container": "operations-technology",
+          "nodes": ["customer-data-governance-team"]
+        }
+      }
+    }
+  ]
+}

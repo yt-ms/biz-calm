@@ -33,7 +33,8 @@ run the validation from the `schemas` directory as above, rather than from the r
 ## Worked examples of business architecture concepts
 
 * Business Capabilities: `architectures/financial-institution-capabilities.calm.json`
-* Value Streams: `architectures/financial-institution-capabilities.calm.json`
+* Value Streams: `architectures/financial-institution-value-streams.calm.json`
+* Organizational Structure: `architectures/financial-institution-organization.calm.json`
 
 
 ## Repository Structure
@@ -43,6 +44,7 @@ biz-calm/
 ├── architectures/
 │   ├── company-example.calm.json
 │   ├── financial-institution-capabilities.calm.json
+│   ├── financial-institution-organization.calm.json
 │   ├── financial-institution-value-streams.calm.json
 │   └── trading-system-bizarch.architecture.json
 ├── schemas/
