@@ -51,11 +51,11 @@
             "properties": {
               "name": {
                 "type": "string",
-                "description": "The naming convention is to express the business capability in a noun-verb format where each outcome (input, output, or deliverable) is described as a noun and each activity that is associated with producing, controlling or monitoring the outcome is described as a verb e.g., “Risk Management”, “Strategy Planning”."
+                "description": "Business capabilities should be named using a noun-verb structure that combines the deliverable or outcome (noun) with the associated activity (verb). Examples include 'Risk Management', 'Strategy Planning'."
               },
               "description": {
                 "type": "string",
-                "description": "Ideally 1 (or max 2) sentences. The recommended syntax to describe each business capability is “the ability [or capacity] to …”. For example, the business capability “Market Risk Management” can be described as “Ability to identify, assess, aggregate, articulate, and incorporate various exposures to harm, danger, or loss associated with a market.” Be concise and precise - do not simply repeat the name of the capability in the description, such as “the ability to manage projects” when describing “Project Management”. Instead use a description that has more explanation such as “Ability to plan, execute, monitor projects from inception to completion”."
+                "description": "Concise explanation (1-2 sentences maximum) preferably starting with 'the ability to...' or 'the capacity to...'. Provide meaningful detail rather than simply restating the capability name. For instance, 'Market Risk Management' should describe 'Ability to identify, assess, aggregate, articulate, and incorporate various exposures to harm, danger, or loss associated with a market' rather than just 'the ability to manage market risk'."
               },
               "capability-level": {
                 "type": "integer",
@@ -89,16 +89,23 @@
             }
           },
           "then": {
-            "required": ["unique-id", "node-type", "name", "description", "value-stream-type"],
+            "required": ["unique-id", "node-type", "name", "description", "value"],
             "properties": {
-              "value-stream-type": {
-                "enum": ["operational", "development", "customer-facing", "support"]
+              "name": {
+                "type": "string",
+                "description": "Value stream names should be expressed from the initiating stakeholder's viewpoint using active voice with a verb-noun structure (opposite of business capability naming). Examples: 'Acquire Retail Product', 'Recruit Employee'."
               },
-              "cycle-time": {
-                "type": "string"
+              "description": {
+                "type": "string",
+                "description": "Brief, precise explanation that clarifies the scope of activities covered by the value stream, supplementing the self-explanatory name."
               },
-              "customer-segment": {
-                "type": "string"
+              "stakeholder": {
+                "type": "string",
+                "description": "Reference to the unique-id of the primary stakeholder that initiates or benefits from the value stream."
+              },
+              "value": {
+                "type": "string",
+                "description": "The expected outcome or benefit from the stakeholder's perspective when the value stream completes successfully. This represents the cumulative value delivered across all stages of the value stream."
               }
             }
           }

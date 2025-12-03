@@ -1,0 +1,135 @@
+{
+  "$schema": "../schemas/calm-business-architecture.schema.json",
+  "name": "Financial Institution Value Streams",
+  "description": "Example value stream architecture for a financial institution showing key value delivery flows",
+  "nodes": [
+    {
+      "unique-id": "retail-customer",
+      "node-type": "stakeholder",
+      "name": "Retail Customer",
+      "description": "Individual consumer seeking personal banking products and services including checking accounts, savings accounts, credit cards, and loans.",
+      "metadata": {
+        "stakeholder-type": "external-customer"
+      }
+    },
+    {
+      "unique-id": "business-customer",
+      "node-type": "stakeholder",
+      "name": "Business Customer",
+      "description": "Commercial entity requiring business banking services including merchant accounts, business loans, and cash management solutions.",
+      "metadata": {
+        "stakeholder-type": "external-customer"
+      }
+    },
+    {
+      "unique-id": "onboard-retail-customer",
+      "node-type": "value-stream",
+      "name": "Onboard Retail Customer",
+      "description": "End-to-end process of acquiring and activating new retail banking customers from initial interest through first product usage.",
+      "stakeholder": "retail-customer",
+      "value": "Active banking relationship with accessible accounts and services ready for use"
+    },
+    {
+      "unique-id": "process-loan-application",
+      "node-type": "value-stream",
+      "name": "Process Loan Application",
+      "description": "Complete journey from loan inquiry through funding, including application submission, creditworthiness assessment, approval decision, and disbursement.",
+      "stakeholder": "retail-customer",
+      "value": "Approved loan with funds disbursed to meet customer's financial need"
+    },
+    {
+      "unique-id": "resolve-customer-issue",
+      "node-type": "value-stream",
+      "name": "Resolve Customer Issue",
+      "description": "Service flow handling customer inquiries, complaints, and problems from initial contact through resolution and follow-up.",
+      "stakeholder": "retail-customer",
+      "value": "Satisfactory resolution of customer concern with restored confidence in the institution"
+    },
+    {
+      "unique-id": "execute-payment",
+      "node-type": "value-stream",
+      "name": "Execute Payment",
+      "description": "Payment processing flow from initiation through settlement, covering domestic and international transfers with fraud prevention and compliance checks.",
+      "stakeholder": "retail-customer",
+      "value": "Funds transferred securely and accurately to intended recipient within expected timeframe"
+    },
+    {
+      "unique-id": "acquire-business-banking",
+      "node-type": "value-stream",
+      "name": "Acquire Business Banking Relationship",
+      "description": "Commercial customer acquisition process including needs assessment, product recommendations, account setup, and business services activation.",
+      "stakeholder": "business-customer",
+      "value": "Established business banking relationship with tailored services supporting company operations"
+    },
+    {
+      "unique-id": "manage-merchant-services",
+      "node-type": "value-stream",
+      "name": "Manage Merchant Services",
+      "description": "Ongoing delivery of payment acceptance services from merchant onboarding through transaction processing, settlement, and reporting.",
+      "stakeholder": "business-customer",
+      "value": "Operational payment acceptance capability enabling business revenue collection"
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "rel-onboard-to-retail",
+      "description": "Retail Customer initiates Onboard Retail Customer value stream",
+      "relationship-type": {
+        "interacts": {
+          "actor": "retail-customer",
+          "nodes": ["onboard-retail-customer"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-loan-to-retail",
+      "description": "Retail Customer initiates Process Loan Application value stream",
+      "relationship-type": {
+        "interacts": {
+          "actor": "retail-customer",
+          "nodes": ["process-loan-application"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-issue-to-retail",
+      "description": "Retail Customer initiates Resolve Customer Issue value stream",
+      "relationship-type": {
+        "interacts": {
+          "actor": "retail-customer",
+          "nodes": ["resolve-customer-issue"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-payment-to-retail",
+      "description": "Retail Customer initiates Execute Payment value stream",
+      "relationship-type": {
+        "interacts": {
+          "actor": "retail-customer",
+          "nodes": ["execute-payment"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-acquire-to-business",
+      "description": "Business Customer initiates Acquire Business Banking Relationship value stream",
+      "relationship-type": {
+        "interacts": {
+          "actor": "business-customer",
+          "nodes": ["acquire-business-banking"]
+        }
+      }
+    },
+    {
+      "unique-id": "rel-merchant-to-business",
+      "description": "Business Customer initiates Manage Merchant Services value stream",
+      "relationship-type": {
+        "interacts": {
+          "actor": "business-customer",
+          "nodes": ["manage-merchant-services"]
+        }
+      }
+    }
+  ]
+}
