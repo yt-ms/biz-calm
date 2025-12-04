@@ -76,58 +76,68 @@ The following business architecture core concepts can be used as CALM node types
 - **event** - Business events
 
 
-## Example: 3-Tier Trading System
+### Examples
 
-The example architecture demonstrates:
 
-1. **Business Layer**: Capabilities, value streams, information concepts, stakeholders
-2. **Application Layer**: Services implementing business capabilities
-3. **Data Layer**: Databases storing business information concepts
-
-### Key Patterns
-
-**Capability Hierarchy**:
+**Business Capability**:
 ```json
 {
-  "node-type": "capability",
-  "metadata": {
-    "capability-level": 1,
-    "parent-capability": "parent-id"
-  }
+  "unique-id": "credit-risk-management",
+  "node-type": "business-capability",
+  "name": "Credit Risk Management",
+  "description": "Ability to evaluate and manage the risk of loss from borrower default...",
+  "capability-level": 1,
+  "parent-capability": "risk-management",
+  "seq-num": "1.1"
 }
 ```
 
-**Capability Realization**:
+**Capability Hierarchy Relationship**:
+```json
+{
+  "unique-id": "rel-credit-risk-to-risk",
+  "relationship-type": "hierarchy",
+  "parties": ["risk-management", "credit-risk-management"],
+  "description": "Credit Risk Management is a sub-capability of Risk Management"
+}
+```
+
+**Value Stream**:
+```json
+{
+  "unique-id": "process-loan-application",
+  "node-type": "value-stream",
+  "name": "Process Loan Application",
+  "description": "Complete journey from loan inquiry through funding...",
+  "stakeholder": "retail-customer",
+  "value": "Approved loan with funds disbursed to meet customer's financial need"
+}
+```
+
+**Value Stream Stage**:
+```json
+{
+  "unique-id": "vs-stage-assess-credit",
+  "node-type": "value-stream-stage",
+  "name": "Assess Credit Risk",
+  "description": "Comprehensive evaluation of applicant's creditworthiness...",
+  "parent-value-stream": "process-loan-application",
+  "stage-order": 2,
+  "stakeholder": "loan-officer",
+  "stage-value": "Completed credit risk assessment with recommendation score"
+}
+```
+
+**Value Stream Composition**:
 ```json
 {
   "relationship-type": {
     "composed-of": {
-      "container": "business-capability",
-      "nodes": ["service", "database"]
+      "container": "process-loan-application",
+      "nodes": ["vs-stage-receive-application", "vs-stage-assess-credit"]
     }
-  }
-}
-```
-
-**Value Stream Support**:
-```json
-{
-  "node-type": "service",
-  "metadata": {
-    "supports-value-stream": "trade-to-settlement",
-    "implements-capabilities": ["order-mgmt"]
-  }
-}
-```
-
-**Value Stream Stages**:
-```json
-{
-  "node-type": "value-stream-stage",
-  "name": "Assess Credit Risk",
-  "parent-value-stream": "process-loan-application",
-  "stage-order": 2,
-  "stage-value": "Completed credit risk assessment with recommendation score"
+  },
+  "description": "Process Loan Application value stream is composed of stages"
 }
 ```
 
@@ -141,12 +151,26 @@ The example architecture demonstrates:
     }
   },
   "metadata": {
-    "relationship-category": "maps-to"
+    "relationship-category": "maps-to",
+    "description": "Value stream stage to process mapping"
   }
 }
 ```
 
-## Documentation
+**Stakeholder Interaction**:
+```json
+{
+  "relationship-type": {
+    "interacts": {
+      "actor": "retail-customer",
+      "nodes": ["process-loan-application"]
+    }
+  },
+  "description": "Retail Customer initiates Process Loan Application value stream"
+}
+```
+
+## Further examples
 
 - [Example Architecture](architectures/trading-system-bizarch.architecture.json) - 3-tier trading system
 - [Schema Extension](schemas/calm-business-architecture.schema.json) - Business architecture node type definitions
