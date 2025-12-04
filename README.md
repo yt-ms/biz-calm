@@ -54,8 +54,6 @@ biz-calm/
 │   ├── calm-business-architecture.schema.json
 │   ├── calm-extended.meta.json
 │   └── company-example.standard.json
-├── docs/
-│   └── business-architecture-modelling.md
 └── README.md
 ```
 
@@ -150,7 +148,6 @@ The example architecture demonstrates:
 
 ## Documentation
 
-- [Business Architecture Modelling Guide](docs/business-architecture-modelling.md) - Comprehensive guide to modeling business architecture concepts
 - [Example Architecture](architectures/trading-system-bizarch.architecture.json) - 3-tier trading system
 - [Schema Extension](schemas/calm-business-architecture.schema.json) - Business architecture node type definitions
 
